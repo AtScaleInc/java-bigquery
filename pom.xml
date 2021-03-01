@@ -41,16 +41,7 @@
     <url>https://github.com/googleapis/java-bigquery/issues</url>
     <system>GitHub Issues</system>
   </issueManagement>
-  <distributionManagement>
-    <snapshotRepository>
-      <id>sonatype-nexus-snapshots</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-    <repository>
-      <id>sonatype-nexus-staging</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>
-  </distributionManagement>
+
   <licenses>
     <license>
       <name>Apache-2.0</name>
@@ -219,4 +210,49 @@
       </modules>
     </profile>
   </profiles>
+
+  <!-- BEGIN ATSCALE CONFIG -->
+  <repositories>
+    <repository>
+      <id>central</id>
+      <name>Central Repository</name>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>central</id>
+      <name>Central Repository</name>
+      <url>https://repo.maven.apache.org/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>atscale</id>
+      <name>atscale-ext-packages-snapshot</name>
+      <url>http://artifactory.infra.atscale.com/ext-packages</url>
+    </snapshotRepository>
+    <repository>
+      <id>atscale</id>
+      <name>atscale-ext-packages</name>
+      <url>http://artifactory.infra.atscale.com/ext-packages</url>
+    </repository>
+  </distributionManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.6.8</version>
+        <configuration>
+          <!-- We don't need Nexus Staging. This triggers basically equivalent behaviour to maven-deploy-plugin. -->
+          <skipLocalStaging>true</skipLocalStaging>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <!-- END ATSCALE CONFIG -->
 </project>
